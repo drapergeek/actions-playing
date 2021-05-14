@@ -20,7 +20,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const owner = context.repo.owner;
-            const repo = context.repo;
+            const repo = context.repo.repo;
             const issues = await github.search.issuesAndPullRequests({q: `label:ContentSyncAutoMerge+repo:${repo}`});
             issues.map(function(issue) {
               github.pulls.get({owner, repo, pull_number: issue.number}).then(function(fullIssue) {
