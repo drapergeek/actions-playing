@@ -26,3 +26,5 @@ jobs:
           PR_BRANCH_NAME: 'update-content-${PR_ID}'
           PR_TITLE: 'Update content'
           AUTO_MERGE_THRESHOLD_DAYS: -1
+          PR_BODY:
+            Update content
