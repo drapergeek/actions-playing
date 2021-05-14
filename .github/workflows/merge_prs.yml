@@ -23,6 +23,7 @@ jobs:
             const repo = context.repo;
             const issues = await github.search.issuesAndPullRequests({q: `label:ContentSyncAutoMerge+repo:${repo}`});
             issues.map(function(issue) {
-              const fullIssue = await github.pulls.get({owner, repo, pull_number: issue.number});
-              console.log(fullIssue);
+              github.pulls.get({owner, repo, pull_number: issue.number}).then(function(fullIssue) {
+                console.log(fullIssue);
+              });
             });
