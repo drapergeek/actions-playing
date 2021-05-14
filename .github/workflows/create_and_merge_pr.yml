@@ -1,0 +1,27 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Create PR & Merge
+
+# Controls when the action will run. 
+on:
+  schedule:
+    - cron: 5 * * * *
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Update npm packages
+        uses: technote-space/create-pr-action@v2
+        with:
+          EXECUTE_COMMANDS: |
+            date >> testfile.txt
+          COMMIT_MESSAGE: 'Update content'
+          COMMIT_NAME: 'GitHub Actions'
+          COMMIT_EMAIL: 'example@example.com'
+          PR_BRANCH_NAME: 'update-content-${PR_ID}'
+          PR_TITLE: 'Update content'
+          AUTO_MERGE_THRESHOLD_DAYS: 0
