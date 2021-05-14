@@ -22,11 +22,10 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const repoName = 'drapergeek/actions-playing';
-            const issues = await github.search.issuesAndPullRequests({q: `label:ContentSyncAutoMerge+repo:${repoName}`});
-            console.log("The issues %o", issues);
-            for (const issue of issues) {             
-              github.pulls.get({owner, repo, pull_number: issue.number}).then(function(fullIssue) {
-                console.log(fullIssue);
-              });
+            const response = await github.search.issuesAndPullRequests({q: `label:ContentSyncAutoMerge+repo:${repoName}`});
+            console.log("The response %o", response);
+            for (const issue of response.data.items) {             
+              const fullIssue = await github.pulls.get({owner, repo, pull_number: issue.number});
+              console.log(fullIssue);
             }
 
