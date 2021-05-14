@@ -19,5 +19,10 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const issues = await github.search.issuesAndPullRequests({q: "label:ContentSyncAutoMerge"});
-            console.log(issues.data.items);
+            const owner = context.repo.owner;
+            const repo = context.repo;
+            const issues = await github.search.issuesAndPullRequests({q: `label:ContentSyncAutoMerge+repo:${repo}`});
+            issues.map(function(issue) {
+              const fullIssue = await github.pulls.get({owner, repo, pull_number: issue.number});
+              console.log(fullIssue);
+            });
