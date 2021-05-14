@@ -15,16 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Update npm packages
-        uses: technote-space/create-pr-action@v2
+      - name: Sync content
+        run: |
+          date >> testfile.txt
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3
         with:
-          EXECUTE_COMMANDS: |
-            date >> testfile.txt
-          COMMIT_MESSAGE: 'Update content'
-          COMMIT_NAME: 'GitHub Actions'
-          COMMIT_EMAIL: 'example@example.com'
-          PR_BRANCH_NAME: 'update-content-${PR_ID}'
-          PR_TITLE: 'Update content'
-          AUTO_MERGE_THRESHOLD_DAYS: -1
-          PR_BODY:
-            Update content
+        token: ${{ secrets.PAT }}
