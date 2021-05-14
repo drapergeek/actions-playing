@@ -23,11 +23,11 @@ jobs:
             const repo = context.repo.repo;
             const repoName = 'drapergeek/actions-playing';
             const response = await github.search.issuesAndPullRequests({q: `label:ContentSyncAutoMerge+repo:${repoName}`});
-            console.log("The response %o", response);
             for (const issue of response.data.items) {             
               const fullIssue = await github.pulls.get({owner, repo, pull_number: issue.number});
+              console.log("Full issue %o", fullIssue.data);
               const ref = fullIssue.data.head.sha;
               const commitStatus = await github.repos.listCommitStatusesForRef({owner, repo, ref: ref});
-              console.log("Commit status, %o", commitStatus);
+              console.log("Commit status, %o", commitStatus.data);
             }
 
