@@ -26,7 +26,7 @@ jobs:
             console.log("The response %o", response);
             for (const issue of response.data.items) {             
               const fullIssue = await github.pulls.get({owner, repo, pull_number: issue.number});
-              const ref = data.head.sha;
+              const ref = fullIssue.data.head.sha;
               const commitStatus = await github.repos.listCommitStatusesForRef({owner, repo, ref: ref});
               console.log("Commit status, %o", commitStatus);
             }
