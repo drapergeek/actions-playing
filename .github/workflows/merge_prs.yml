@@ -23,6 +23,7 @@ jobs:
             const repo = context.repo.repo;
             const repoName = 'drapergeek/actions-playing';
             const issues = await github.search.issuesAndPullRequests({q: `label:ContentSyncAutoMerge+repo:${repoName}`});
+            console.log("The issues %o", issues);
             issues.map(function(issue) {
               github.pulls.get({owner, repo, pull_number: issue.number}).then(function(fullIssue) {
                 console.log(fullIssue);
