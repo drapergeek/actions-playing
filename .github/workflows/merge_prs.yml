@@ -12,7 +12,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const prQuery = `query { 
-              search(query:"label:ContentSyncAutoMerge is:open repo:ezcater/ezcater_contentful-ts", type: ISSUE, first: 10) {
+              search(query:"label:ContentSyncAutoMerge is:open", type: ISSUE, first: 10) {
                 nodes {
                   ...on PullRequest {
                     title
@@ -31,6 +31,6 @@ jobs:
                  } // PullRequest
                 } // search Nodes
               } // search
-             } // query
+             } // query`;
             const result = await github.graphql(query, {});
             console.log(results);
