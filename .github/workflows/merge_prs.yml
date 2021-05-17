@@ -16,6 +16,7 @@ jobs:
                 nodes {
                   ...on PullRequest {
                     title
+                    id
                     commits(last: 2) {
                       nodes {
                         commit {
@@ -34,3 +35,8 @@ jobs:
              } # query`;
             const prResult = await github.graphql(prQuery, {});
             console.log(prResult.search.nodes);
+            const prs = prResult.seach.nodes.filter(function (node) {
+              return node.commits.nodes.commits[0]?.statusCheckRollup?.status === "SUCCESS"
+            });
+            console.log("Matching PRS, %o", prs);
+            
