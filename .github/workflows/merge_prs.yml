@@ -52,6 +52,7 @@ jobs:
                  }
                }  
               }`;
-              const result = await github.graphql(prQuery, {"input": {"pullRequestId": pr.id}})
+              console.log("Merging PR %o", pr);
+              const result = await github.graphql(prMutation, {"input": {"pullRequestId": pr.id}})
               console.log(result);
             };
