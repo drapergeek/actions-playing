@@ -32,5 +32,5 @@ jobs:
                 } // search Nodes
               } // search
              } // query`;
-            const result = await github.graphql(query, {});
-            console.log(results);
+            const prResult = await github.graphql(prQuery, {});
+            console.log(prResult);
