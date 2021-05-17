@@ -12,12 +12,12 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const prQuery = `query { 
-              search(query:"label:ContentSyncAutoMerge is:open", type: ISSUE, first: 10) {
+              search(query:"label:ContentSyncAutoMerge is:open repo:drapergeek/actions-playing", type: ISSUE, first: 10) {
                 nodes {
                   ...on PullRequest {
                     title
                     id
-                    commits(last: 2) {
+                    commits(last: 1) {
                       nodes {
                         commit {
                           statusCheckRollup {
@@ -34,15 +34,24 @@ jobs:
               } # search
              } # query`;
             const prResult = await github.graphql(prQuery, {});
-            console.log(prResult.search.nodes);
             const prs = prResult.search.nodes.filter(function (node) {
               console.log(node);
               try {
-                const status =  node.commits.nodes.commits[0].commit.statusCheckRollup.status
-                console.log("Status of %o is %o", node.id, status);
-                return status === "SUCCESS";
+                // return node.commits.nodes[0].commit.statusCheckRollup.state === "SUCCESS";
+                return true;
               } catch {
                 return false;
               }            
             });
-            console.log("Matching PRS, %o", prs);
+            console.log('merging these prs %o', prs);
+            prs.forEach(function(pr) {
+              const prMutation = `mutation mergePullRequest($input: MergePullRequestInput!) {
+                mergePullRequest(input: $input) {
+                  pullRequest {
+                    mergedAt
+                 }
+               }  
+             }`;
+             const mutationResult = await github.graphql(prQuery, {"input": {"pullRequestId": pr.id}});
+             console.log(mutationResult);
+            });
