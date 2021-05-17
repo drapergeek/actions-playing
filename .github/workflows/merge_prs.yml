@@ -52,6 +52,8 @@ jobs:
                  }
                }  
              }`;
-             const mutationResult = await github.graphql(prQuery, {"input": {"pullRequestId": pr.id}});
-             console.log(mutationResult);
+            github.graphql(prQuery, {"input": {"pullRequestId": pr.id}}).then(function(result) {
+              console.log(result);
+            });
+
             });
