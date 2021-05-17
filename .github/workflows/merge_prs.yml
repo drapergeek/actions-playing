@@ -54,5 +54,5 @@ jobs:
               }`;
               github.graphql(prQuery, {"input": {"pullRequestId": pr.id}}).then(function(result) {
                 console.log(result);
-              }).catch((error) { console.log("Error in mutation %o", error); });
+              }).catch(function(error) { console.log("error %o", error) });
             });
