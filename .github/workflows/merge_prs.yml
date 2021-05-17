@@ -44,7 +44,7 @@ jobs:
               }            
             });
             console.log('merging these prs %o', prs);
-            prs.forEach(function(pr) {
+            for (const pr of prs) {
               const prMutation = `mutation mergePullRequest($input: MergePullRequestInput!) {
                 mergePullRequest(input: $input) {
                   pullRequest {
@@ -52,7 +52,6 @@ jobs:
                  }
                }  
               }`;
-              github.graphql(prQuery, {"input": {"pullRequestId": pr.id}}).then(function(result) {
-                console.log(result);
-              }).catch(function(error) { console.log("error %o", error) });
-            });
+              const result = await github.graphql(prQuery, {"input": {"pullRequestId": pr.id}})
+              console.log(result);
+            };
