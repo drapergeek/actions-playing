@@ -36,7 +36,8 @@ jobs:
             const prResult = await github.graphql(prQuery, {});
             console.log(prResult.search.nodes);
             const prs = prResult.seach.nodes.filter(function (node) {
-              return node.commits.nodes.commits[0]?.statusCheckRollup?.status === "SUCCESS"
+              // return node.commits.nodes.commits[0]?.statusCheckRollup?.status === "SUCCESS"
+              return true;
             });
             console.log("Matching PRS, %o", prs);
             
