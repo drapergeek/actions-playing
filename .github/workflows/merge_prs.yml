@@ -33,4 +33,4 @@ jobs:
               } # search
              } # query`;
             const prResult = await github.graphql(prQuery, {});
-            console.log(prResult.search.data.nodes);
+            console.log(prResult.search.nodes);
