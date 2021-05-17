@@ -21,16 +21,16 @@ jobs:
                         commit {
                           statusCheckRollup {
                             state
-                          } // statusCheckRollup
+                          } # statusCheckRollup
                           status {
                             id
-                          } //status
-                        } // commit
-                      } // commits nodes       
-                    }// commits
-                 } // PullRequest
-                } // search Nodes
-              } // search
-             } // query`;
+                          } #status
+                        } # commit
+                      } # commits nodes       
+                    } # commits
+                 } # PullRequest
+                } # search Nodes
+              } # search
+             } # query`;
             const prResult = await github.graphql(prQuery, {});
             console.log(prResult);
