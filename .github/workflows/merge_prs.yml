@@ -38,10 +38,11 @@ jobs:
             const prs = prResult.search.nodes.filter(function (node) {
               console.log(node);
               try {
-                return node.commits.nodes.commits[0].commit.statusCheckRollup.status === "SUCCESS"
+                const status =  node.commits.nodes.commits[0].commit.statusCheckRollup.status
+                console.log("Status of %o is %o", node.id, status);
+                return status === "SUCCESS";
               } catch {
                 return false;
               }            
             });
             console.log("Matching PRS, %o", prs);
-            
